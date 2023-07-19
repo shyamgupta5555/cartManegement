@@ -29,6 +29,7 @@ import { ToastContainer, toast } from "react-toastify";
 const Header = () => {
   const [price, setPrice] = useState(0);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [toastOpened, setToastOpened] = useState(false);
   const getdate = useSelector((state) => state.cartreducer.carts);
   const dispatch = useDispatch();
   const notify = () => toast.success("order success create", {
@@ -42,6 +43,7 @@ const Header = () => {
     dOne()
     dispatch(DLT(id));
   };
+  
 
   const total = () => {
     let price = 0;
