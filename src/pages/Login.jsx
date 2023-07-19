@@ -1,24 +1,38 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import "./login.css";
+import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [email ,setEmail] =useState()
-  const [password , setPassword] =useState()
-    const navigate  = useNavigate()
-  const notify = () => toast.success("login successfully", {
-    theme: "colored"
-  })
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const navigate = useNavigate();
+  const notify = () =>
+    toast.success("login successfully", {
+      theme: "colored",
+    });
 
- const handelSubmit = ()=>{
-  navigate("/menu")
-  notify()
-  let obj = { email: email, password: password };
-  
+  const navt = () => {
+    navigate("/menu");
+  };
+
+  const err = () => {
+    if (!toastOpened) {
+      toast.error("please enter email");
+      setToastOpened(true);
+    }
+  };
+
+  const handelSubmit = () => {
+    if(!email)return err()
+    navigate("/menu");
+    notify();
+    let obj = { email: email, password: password };
+
     e.preventDefault();
-  
+
     // api
     //   .post("/accounts/login", obj)
     //   .then((response) => {
@@ -27,14 +41,12 @@ const Login = () => {
     //   .catch((error) => {
     //     console.log(error.message);
     //   });
-
- }
+  };
   return (
     <div className="login-container">
-
       <div className="logo">
         <Link className="link" to="/">
-          <img src="" alt=""  />
+          <img src="" alt="" />
         </Link>
       </div>
       <div className="login">
@@ -44,20 +56,37 @@ const Login = () => {
         </div>
         <div className="details">
           <span>Enter your Email</span>
-          <input type="email" placeholder="email" value={email} onChange={(e)=>{setEmail(e.target.value)}} />
+          <input
+            type="email"
+            placeholder="email"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+          />
           <span>Enter your Password</span>
-          <input type="password" placeholder="password" value={password}  onChange={(e) => {
+          <input
+            type="password"
+            placeholder="password"
+            value={password}
+            onChange={(e) => {
               setPassword(e.target.value);
-            }} />
-          <button onClick={handelSubmit} type="submit">Continue</button>
+            }}
+          />
+          <button onClick={handelSubmit} type="submit">
+            Continue
+          </button>
         </div>
         <div className="desc">
           <span>
-            By continuing, you agree to Amazon's Conditions of Use and Privacy
-            Notice.
+            welcome to my restaurant
           </span>
         </div>
+        <Button variant="primary" style={{background :"green"}} className="col-lg-5" onClick={navt}>
+        GO to Home
+      </Button>
       </div>
+     
     </div>
   );
 };

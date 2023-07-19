@@ -32,12 +32,29 @@ const Header = () => {
   const [toastOpened, setToastOpened] = useState(false);
   const getdate = useSelector((state) => state.cartreducer.carts);
   const dispatch = useDispatch();
-  const notify = () => toast.success("order success create", {
-    theme: "colored"
-  })
-  const dOne = () => toast.success( `delete item successfully `, {
-    theme: "colored"
-  })
+  const notify = () => {
+    if (!toastOpened) {
+      toast.success("order success create", {
+        theme: "colored",
+      });
+      setToastOpened(true);
+    }
+  };
+  const err = () => {
+    if (!toastOpened) {
+      toast.error("cart is empty");
+      setToastOpened(true);
+    }
+  };
+  
+  const dOne = () => {
+    if (!toastOpened) {
+      toast.success("delete item successfully ", {
+        theme: "colored",
+      });
+      setToastOpened(true);
+    }
+  };
 
   const dlt = (id) => {
     dOne()
@@ -60,11 +77,14 @@ const Header = () => {
   }
 
   const checkout =  () => {
+    if(getdate.length === 0)return err()
     notify()
     dispatch(ALLREMOVE())
   };
+
   useEffect(() => {
     total();
+    setToastOpened(false)
   }, [total]);
 
   // handle menu click
