@@ -18,15 +18,9 @@ const Login = () => {
     navigate("/menu");
   };
 
-  const err = () => {
-    if (!toastOpened) {
-      toast.error("please enter email");
-      setToastOpened(true);
-    }
-  };
+ 
 
   const handelSubmit = () => {
-    if(!email)return err()
     navigate("/menu");
     notify();
     let obj = { email: email, password: password };
